@@ -7,7 +7,10 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -22,7 +25,8 @@ public class MainActivity extends AppCompatActivity
     Cursor cursor;
     ListView list;
     int maxRecId;
-
+//    RecyclerView rv;
+//    RecycleViewAdapter rva;
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -31,9 +35,21 @@ public class MainActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+//        rv = (RecyclerView) findViewById(R.id.nameList);
         dbHelper = new PhotoDBHelper(this);
         cursor = dbHelper.fetchAll();
         ca = new PhotoAdapter(this, cursor, 0);
+
+//        LinearLayoutManager llm = new LinearLayoutManager(this);
+//        llm.setOrientation(LinearLayoutManager.VERTICAL);
+//        rv.setLayoutManager(llm);
+//
+//        rva = new RecycleViewAdapter(this, cursor);
+//        rv.setAdapter(rva);
+//
+//        TouchHelperCallback callback = new TouchHelperCallback(rva);
+//        ItemTouchHelper touchHelper = new ItemTouchHelper(callback);
+//        touchHelper.attachToRecyclerView(rv);
 
         list = (ListView) findViewById(R.id.listView);
         list.setAdapter(ca);
@@ -73,6 +89,9 @@ public class MainActivity extends AppCompatActivity
         dbHelper = new PhotoDBHelper(this);
         cursor = dbHelper.fetchAll();
         ca = new PhotoAdapter(this, cursor, 0);
+//        rva = new RecycleViewAdapter(this, cursor);
+//        rv = (RecyclerView) findViewById(R.id.nameList);
+//        rv.setAdapter(rva);
         list = (ListView) findViewById(R.id.listView);
         list.setAdapter(ca);
     }
@@ -80,7 +99,6 @@ public class MainActivity extends AppCompatActivity
     @Override
     public boolean onCreateOptionsMenu(Menu menu)
     {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
@@ -88,14 +106,9 @@ public class MainActivity extends AppCompatActivity
     @Override
     public boolean onOptionsItemSelected(MenuItem item)
     {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-
 
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
         switch (id) {
 
             case R.id.action_add:

@@ -9,11 +9,13 @@ public class viewPhotoDetails
     String caption;
     String imagePath;
 
+
     public viewPhotoDetails(int id, String caption, String imagePath)
     {
         this.id = id;
         this.caption = caption;
         this.imagePath = imagePath;
+
     }
 
     public int getId()

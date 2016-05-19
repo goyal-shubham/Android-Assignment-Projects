@@ -26,7 +26,7 @@ public class PhotoDBHelper extends SQLiteOpenHelper
 
     public PhotoDBHelper(Context context)
     {
-        super(context, DB_NAME, null, VERSION);     // we use default cursor factory (null, 3rd arg)
+        super(context, DB_NAME, null, VERSION);
         this.context = context;
     }
 
@@ -39,7 +39,6 @@ public class PhotoDBHelper extends SQLiteOpenHelper
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion)
     {
-        // a simple crude implementation that does not preserve data on upgrade
         db.execSQL(SQL_DROP_TABLE);
         db.execSQL(SQL_CREATE_TABLE);
         displayMsg.toast(context, "Upgrading DB and dropping data!!!");
@@ -84,15 +83,15 @@ public class PhotoDBHelper extends SQLiteOpenHelper
 //        db.execSQL(SQL_ADD);
 //        */
 //    }
-//
-//    public void delete(int id)
-//    {
-//        SQLiteDatabase db = this.getReadableDatabase();
-//        db.delete("photo", "_id=?", new String[]{String.valueOf(id)});
-//
-//        /*
-//        String SQL_DELETE="DELETE FROM contact WHERE _id=" + id + ";";
-//        db.execSQL(SQL_DELETE);
-//         */
-//    }
+
+    public void delete(int id)
+    {
+        SQLiteDatabase db = this.getReadableDatabase();
+        db.delete("photo", "_id=?", new String[]{String.valueOf(id)});
+
+        /*
+        String SQL_DELETE="DELETE FROM contact WHERE _id=" + id + ";";
+        db.execSQL(SQL_DELETE);
+         */
+    }
 }

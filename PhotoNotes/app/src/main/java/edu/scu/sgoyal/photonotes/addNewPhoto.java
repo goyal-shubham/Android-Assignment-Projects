@@ -49,20 +49,11 @@ public class addNewPhoto extends AppCompatActivity
 
                 if (intent.resolveActivity(getPackageManager()) == null)
                 {
-                    Toast.makeText(getApplicationContext(), "Cannot take pictures on this device!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "Not able to click pictures", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
-                try
-                {
-                    File newFile = getOutputFileName();
-
-                }
-                catch (IOException e)
-                {
-                    Log.i("Sgoyal" , "File error occured");
-                    e.printStackTrace();
-                }
+                getOutputFileName();
 
                 intent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
 
@@ -76,7 +67,16 @@ public class addNewPhoto extends AppCompatActivity
             @Override
             public void onClick(View v)
             {
-                addPhoto();
+                if(caption.getText().toString().equals("")){
+                    Toast.makeText(getApplicationContext(), "caption cannot be empty", Toast.LENGTH_SHORT).show();
+                }
+
+
+                else
+                {
+                    addPhoto();
+
+                }
             }
         });
     }
@@ -91,11 +91,16 @@ public class addNewPhoto extends AppCompatActivity
         {
             myDB = this.openOrCreateDatabase("shubham", MODE_PRIVATE, null);
             myDB.execSQL("INSERT INTO PhotoNotes (caption, imagePath) VALUES ( '" + caption1 + "' , '" + photoPath + "');");
+            displayMsg.toast(this, "Photo Note Saved!!");
             finish();
         }
+        else{
+            Toast.makeText(getApplicationContext(), "image needs to be captured", Toast.LENGTH_SHORT).show();
+        }
+
     }
 
-    private File getOutputFileName() throws IOException
+    private void getOutputFileName()
     {
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
 
@@ -103,9 +108,8 @@ public class addNewPhoto extends AppCompatActivity
         imagePath = storageDirectory.getAbsolutePath() + "/" + timeStamp + ".jpg";
 
         displayMsg.toast(this, imagePath);
-        File newFile = new File(imagePath);
 
+        File newFile = new File(imagePath);
         imageUri = Uri.fromFile(newFile);
-        return newFile;
     }
 }

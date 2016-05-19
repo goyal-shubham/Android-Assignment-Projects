@@ -35,6 +35,5 @@ public class photoDetailActivity extends AppCompatActivity
         Bitmap img = BitmapFactory.decodeFile(filePath, options);
 
         imageView.setImageBitmap(img);
-//        ((ImageView)view.findViewById(R.id.imageView2)).setImageBitmap (img);
     }
 }
