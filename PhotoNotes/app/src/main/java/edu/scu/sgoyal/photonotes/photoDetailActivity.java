@@ -61,9 +61,8 @@ public class photoDetailActivity extends AppCompatActivity implements MediaPlaye
                 MediaPlayer mPlayer = new MediaPlayer();
 
                 mPlayer.setOnCompletionListener(photoDetailActivity.this);
-                if (isPlaying) {
                     try {
-
+                        playAudio.setText("Playing...");
                         mPlayer.setDataSource(mFileName);
                         mPlayer.prepare();
                         mPlayer.start();
@@ -73,13 +72,6 @@ public class photoDetailActivity extends AppCompatActivity implements MediaPlaye
                    // playAudio.setText("Stop Audio");
 
 
-                } else {
-
-                    mPlayer.stop();
-                    playAudio.setText("Play Audio");
-
-                }
-                isPlaying = !isPlaying;
 
             }
         });

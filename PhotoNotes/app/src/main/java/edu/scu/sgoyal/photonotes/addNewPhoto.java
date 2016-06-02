@@ -189,7 +189,6 @@ public class addNewPhoto extends AppCompatActivity implements MediaPlayer.OnComp
                 {
                     mPlayer = new MediaPlayer();
                     mPlayer.setOnCompletionListener(addNewPhoto.this);
-                    if (isPlaying) {
                         try {
 
                             statusAudio.setText("Playing...");
@@ -199,13 +198,6 @@ public class addNewPhoto extends AppCompatActivity implements MediaPlayer.OnComp
                         } catch (IOException e) {
 //                            Log.e("media", "prepare() failed");
                         }
-
-                    } else {
-                        mPlayer.stop();
-                        statusAudio.setText(" ");
-                        playButton.setText("Replay");
-                    }
-                    isPlaying = !isPlaying;
 
                 }
                 else
@@ -238,7 +230,6 @@ public class addNewPhoto extends AppCompatActivity implements MediaPlayer.OnComp
     //Main method for Saving photo in SQLlite
     private void addPhoto()
     {
-        displayMsg.toast(this, "Photo Note Saved!!");
 
         String caption1 = caption.getText().toString();
         File imageFilePath = new File(imagePath);
@@ -254,24 +245,7 @@ public class addNewPhoto extends AppCompatActivity implements MediaPlayer.OnComp
         mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
         LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, mLocationRequest, addNewPhoto.this);
 
-        if(mLastLocation != null)
-        {
-            latitude = String.valueOf(mLastLocation.getLatitude());
-            longitude = String.valueOf(mLastLocation.getLongitude());
 
-            Log.i("location", String.valueOf(latitude));
-            Log.i("location", String.valueOf(longitude));
-
-        }
-        else
-        {
-            Toast.makeText(getApplicationContext(),"Location not available" ,Toast.LENGTH_SHORT).show();
-        }
-        if(audioPath == null)
-        {
-            Toast.makeText(getApplicationContext(),"No Audio Recorded" ,Toast.LENGTH_SHORT).show();
-
-        }
 
         if (!photoPath.equals("/"))
         {
@@ -285,12 +259,32 @@ public class addNewPhoto extends AppCompatActivity implements MediaPlayer.OnComp
                 e.printStackTrace();
             }
 
+
+            if(mLastLocation != null)
+            {
+                latitude = String.valueOf(mLastLocation.getLatitude());
+                longitude = String.valueOf(mLastLocation.getLongitude());
+
+                Log.i("location", String.valueOf(latitude));
+                Log.i("location", String.valueOf(longitude));
+
+            }
+            else
+            {
+                Toast.makeText(getApplicationContext(),"Location not available" ,Toast.LENGTH_SHORT).show();
+            }
+
+            if(audioPath == null)
+            {
+                Toast.makeText(getApplicationContext(),"No Audio Recorded" ,Toast.LENGTH_SHORT).show();
+            }
             Log.i("location", String.valueOf(latitude));
             Log.i("location", String.valueOf(longitude));
 
 
             photoPath = imageFilePath.getAbsolutePath().toString();
 
+            displayMsg.toast(this, "Photo Note Saved!!");
 
             //Inserting all the values in database
             myDB = this.openOrCreateDatabase("shubham", MODE_PRIVATE, null);

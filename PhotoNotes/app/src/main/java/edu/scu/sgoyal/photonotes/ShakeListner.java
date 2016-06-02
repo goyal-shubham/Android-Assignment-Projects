@@ -7,40 +7,25 @@ import android.hardware.SensorManager;
 
 
 public class ShakeListner implements SensorEventListener {
-    /** Minimum movement force to consider. */
     private static final int MIN_FORCE = 8;
 
-    /**
-     * Minimum times in a shake gesture that the direction of movement needs to
-     * change.
-     */
     private static final int MIN_DIRECTION_CHANGE = 3;
 
-    /** Maximum pause between movements. */
     private static final int MAX_PAUSE_BETHWEEN_DIRECTION_CHANGE = 200;
 
-    /** Maximum allowed time for shake gesture. */
     private static final int MAX_TOTAL_DURATION_OF_SHAKE = 400;
 
-    /** Time when the gesture started. */
     private long mFirstDirectionChangeTime = 0;
 
-    /** Time when the last movement started. */
     private long mLastDirectionChangeTime;
 
-    /** How many movements are considered so far. */
     private int mDirectionChangeCount = 0;
 
-    /** The last x position. */
     private float lastX = 0;
 
-    /** The last y position. */
     private float lastY = 0;
-
-    /** The last z position. */
     private float lastZ = 0;
 
-    /** OnShakeListener that is called when shake is detected. */
     private OnShakeListener mShakeListener;
 
     /**

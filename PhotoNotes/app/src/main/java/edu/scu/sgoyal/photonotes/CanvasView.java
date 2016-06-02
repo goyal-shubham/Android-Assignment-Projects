@@ -16,7 +16,6 @@ import android.widget.Toast;
  */
 public class CanvasView extends View
 {
-    public int width;
     public int height;
     private Bitmap mBitmap;
     private Canvas mCanvas;
@@ -43,33 +42,27 @@ public class CanvasView extends View
         mPaint.setStrokeWidth(4f);
     }
 
-    // override onSizeChanged
     @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
         super.onSizeChanged(w, h, oldw, oldh);
-
-        // your Canvas will draw onto the defined Bitmap
         mBitmap = Bitmap.createBitmap(w, h, Bitmap.Config.ARGB_8888);
         mCanvas = new Canvas(mBitmap);
     }
 
-    // override onDraw
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        // draw the mPath with the mPaint on the canvas when onDraw
         canvas.drawPath(mPath, mPaint);
     }
 
-    // when ACTION_DOWN start touch according to the x,y values
-    private void startTouch(float x, float y) {
+    private void touchStartDimensions(float x, float y) {
         mPath.moveTo(x, y);
         mX = x;
         mY = y;
     }
 
     // when ACTION_MOVE move touch according to the x,y values
-    private void moveTouch(float x, float y) {
+    private void touchMove(float x, float y) {
 
         float dx = Math.abs(x - mX);
         float dy = Math.abs(y - mY);
@@ -105,11 +98,11 @@ public class CanvasView extends View
 
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
-                startTouch(x, y);
+                touchStartDimensions(x, y);
                 invalidate();
                 break;
             case MotionEvent.ACTION_MOVE:
-                moveTouch(x, y);
+                touchMove(x, y);
                 invalidate();
                 break;
             case MotionEvent.ACTION_UP:

@@ -23,16 +23,20 @@
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:theme="@style/AppTheme.NoActionBar"
+           >
+        </activity>
+        <activity android:name=".photoDetailActivity"
+            android:parentActivityName=".MainActivity">
+        </activity>
+        <activity android:name=".addNewPhoto">
+        </activity>
+        <activity android:name=".SplashScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
-        </activity>
-        <activity android:name=".photoDetailActivity">
-        </activity>
-        <activity android:name=".addNewPhoto">
         </activity>
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
