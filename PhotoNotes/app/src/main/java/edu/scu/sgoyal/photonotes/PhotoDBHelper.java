@@ -20,6 +20,9 @@ public class PhotoDBHelper extends SQLiteOpenHelper
             "CREATE TABLE PhotoNotes (" +
                     "  _id INTEGER PRIMARY KEY AUTOINCREMENT," +
                     "  caption TEXT," +
+                    "  lat TEXT," +
+                    "  lan TEXT," +
+                    "  audioPath TEXT," +
                     "  imagePath TEXT);";
 
     static private final String SQL_DROP_TABLE = "DROP TABLE PhotoNotes";

@@ -60,9 +60,16 @@ public class MainActivity extends AppCompatActivity
             {
                 String path = cursor.getString(cursor.getColumnIndex("imagePath"));
                 String caption = cursor.getString(cursor.getColumnIndex("caption"));
+                String audioPath = cursor.getString(cursor.getColumnIndex("audioPath"));
+                String lat = cursor.getString(cursor.getColumnIndex("lat"));
+                String lon = cursor.getString(cursor.getColumnIndex("lan"));
+
                 final Intent intent = new Intent(MainActivity.this, photoDetailActivity.class);
                 intent.putExtra("currentPath", path);
                 intent.putExtra("currentCaption", caption);
+                intent.putExtra("audioPath", audioPath);
+                intent.putExtra("lat", lat);
+                intent.putExtra("lon", lon);
                 startActivity(intent);
             }
         });
@@ -80,7 +87,7 @@ public class MainActivity extends AppCompatActivity
         });
 
         maxRecId = dbHelper.getMaxRecID();
-        displayMsg.toast(this , "MacRecID is " + maxRecId);
+        displayMsg.toast(this , "Total Notes :  " + maxRecId);
     }
 
     @Override
